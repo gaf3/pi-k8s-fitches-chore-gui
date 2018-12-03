@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chore-gui
+  namespace: fitches
+  labels:
+    app: chore-gui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chore-gui
+  template:
+    metadata:
+      labels:
+        app: chore-gui
+    spec:
+      containers:
+      - name: rest
+        image: docker.io/gaf3/pi-k8s-fitches-chore-gui:0.1-x86_64
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          initialDelaySeconds: 5
+          httpGet:
+            path: /
+            port: 80
+        livenessProbe:
+          initialDelaySeconds: 2
+          periodSeconds: 5
+          httpGet:
+            path: /
+            port: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: chore-gui
+  namespace: fitches
+spec:
+  selector:
+    app: chore-gui
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 6771
+    targetPort: 80
+    nodePort: 30002

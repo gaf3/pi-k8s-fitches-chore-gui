@@ -1,0 +1,32 @@
+{{#def.Header}}
+<div class="uk-overflow-container">
+    <h2>Chore</h2>
+    <table class="uk-table uk-table-hover">
+        <thead>
+            <tr>
+                <th>Label</th>
+                <th>Person</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{~it.chores :chore}}
+            <tr>
+                <td OnClick="DRApp.go('chore','{{=chore.id}}')">{{=chore.label}}</td>
+                <td OnClick="DRApp.go('chore','{{=chore.id}}')">{{=chore.person}}</td>
+                <td>
+                    {{? chore.completed }}
+                        Completed
+                    {{??}}
+                        Active
+                        <button type="button" OnClick="DRApp.current.controller.next('{{=chore.id}}')" class="uk-button uk-button-primary">
+                            <i class="uk-icon-step-forward"></i> 
+                        </button>                       
+                    {{?}}
+                </td>
+            </tr>
+            {{~}}
+        </tbody>
+    </table>
+</div>
+{{#def.Footer}}

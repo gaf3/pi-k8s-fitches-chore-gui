@@ -1,0 +1,14 @@
+<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+    <nav class="uk-navbar uk-margin-bottom">
+        <ul class="uk-navbar-nav">
+            <li {{? DRApp.current.paths[0] == '' }}class="uk-active"{{?}}>
+                <a href="{{=DRApp.link('home')}}">Create</a>
+            </li>
+            <li {{? DRApp.current.paths[0] == 'chore' }}class="uk-active"{{?}}>
+                <a href="{{=DRApp.link('chores')}}">Chores</a>
+            </li>
+            <li {{? DRApp.current.paths[0] == 'template' }}class="uk-active"{{?}}>
+                <a href="{{=DRApp.link('templates')}}">Templates</a>
+            </li>
+        </ul>
+    </nav>

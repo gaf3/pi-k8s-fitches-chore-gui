@@ -1,0 +1,36 @@
+{{#def.Header}}
+<div class="uk-overflow-container">
+    <form class="uk-form uk-form-horizontal">
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="template">Template</label>
+            <div class="uk-form-controls">
+                <select id="template" class="uk-form-select">
+                    {{~ it.templates :template}}
+                    <option value="{{=template.id}}" {{? it.values.template == template.id }}selected{{?}}>{{=template.label}}</option>
+                    {{~}}
+                </select>
+            </div>
+        </div>
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="person">Person</label>
+            <div class="uk-form-controls">
+                <input id='person' value='{{!it.values.person}}' type="text" placeholder="Person responsible" class="uk-form-width-medium"/>
+            </div>
+        </div>
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="node">Node</label>
+            <div class="uk-form-controls">
+                <select id="node" class="uk-form-select">
+                    {{~ it.settings.node :node}}
+                    <option value="{{!node}}" {{? it.values.node == node }}selected{{?}}>{{=node}}</option>
+                    {{~}}
+                </select>
+            </div>
+        </div>
+        <br/>
+        <button type="button" OnClick="DRApp.current.controller.create()" class="uk-button uk-button-primary">
+            <i class="uk-icon-bars"></i> Create
+        </button>
+    </form>
+</div>
+{{#def.Footer}}

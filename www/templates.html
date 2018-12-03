@@ -1,0 +1,21 @@
+{{#def.Header}}
+<div class="uk-overflow-container">
+    <h2>Templates</h2>
+    <table class="uk-table uk-table-hover">
+        <thead>
+            <tr>
+                <th>Label</th>
+                <th>Language</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{~it.templates :template}}
+            <tr OnClick="DRApp.go('template',{{=template.id}})">
+                <td>{{=template.label}}</td>
+                <td>{{=template.language}}</td>
+            </tr>
+            {{~}}
+        </tbody>
+    </table>
+</div>
+{{#def.Footer}}
