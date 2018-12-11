@@ -89,11 +89,8 @@ DRApp.controller("Base",null,{
         this.it.chore = data.chore;
         this.application.render(this.it);
     },
-    incomplete: function(chore_id, task_id) {
-        DRApp.rest("POST","/api/chore/" + chore_id + "/task/" + task_id + "/incomplete",null,$.proxy(this.action_data,this));
-    },
-    complete: function(chore_id, task_id) {
-        DRApp.rest("POST","/api/chore/" + chore_id + "/task/" + task_id + "/complete",null,$.proxy(this.action_data,this));
+    task_action: function(chore_id, task_id, action) {
+        DRApp.rest("POST","/api/chore/" + chore_id + "/task/" + task_id + "/" + action,null,$.proxy(this.action_data,this));
     },
     templates: function() {
         DRApp.rest("GET","/api/template",null,$.proxy(this.templates_data,this));

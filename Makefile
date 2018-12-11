@@ -1,6 +1,6 @@
 MACHINE=$(shell uname -m)
 IMAGE=pi-k8s-fitches-chore-gui
-VERSION=0.1
+VERSION=0.2
 TAG="$(VERSION)-$(MACHINE)"
 ACCOUNT=gaf3
 NAMESPACE=fitches
@@ -22,7 +22,7 @@ shell:
 	docker run -it $(VOLUMES) $(ACCOUNT)/$(IMAGE):$(TAG) sh
 
 run:
-	docker run -it --rm $(VOLUMES) -p $(PORT):80 -h $(IMAGE) $(ACCOUNT)/$(IMAGE):$(TAG)
+	docker run -it --rm $(VOLUMES) -p 127.0.0.1:$(PORT):80 -h $(IMAGE) $(ACCOUNT)/$(IMAGE):$(TAG)
 
 push: build
 	docker push $(ACCOUNT)/$(IMAGE):$(TAG)
