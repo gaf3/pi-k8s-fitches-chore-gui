@@ -15,7 +15,7 @@
                 <td OnClick="DRApp.go('chore','{{=chore.id}}')">{{=chore.label}}</td>
                 <td OnClick="DRApp.go('chore','{{=chore.id}}')">{{=chore.person}}</td>
                 <td>
-                    {{? chore.completed }}
+                    {{? chore.end }}
                         Completed
                     {{??}}
                         Active

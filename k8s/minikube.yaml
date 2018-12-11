@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: rest
-        image: docker.io/gaf3/pi-k8s-fitches-chore-gui:0.1-x86_64
+        image: docker.io/gaf3/pi-k8s-fitches-chore-gui:0.2-x86_64
         imagePullPolicy: Always
         ports:
         - containerPort: 80
