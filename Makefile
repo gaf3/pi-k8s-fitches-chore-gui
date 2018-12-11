@@ -1,6 +1,6 @@
 MACHINE=$(shell uname -m)
 IMAGE=pi-k8s-fitches-chore-gui
-VERSION=0.2
+VERSION=0.3
 TAG="$(VERSION)-$(MACHINE)"
 ACCOUNT=gaf3
 NAMESPACE=fitches
@@ -13,7 +13,7 @@ else
 BASE=nginx:1.15.7-alpine
 endif
 
-.PHONY: build shell run push create update delete create-dev update-dev delete-dev
+.PHONY: build shell run public push create update delete create-dev update-dev delete-dev
 
 build:
 	docker build . --build-arg BASE=$(BASE) -t $(ACCOUNT)/$(IMAGE):$(TAG)
@@ -23,6 +23,9 @@ shell:
 
 run:
 	docker run -it --rm $(VOLUMES) -p 127.0.0.1:$(PORT):80 -h $(IMAGE) $(ACCOUNT)/$(IMAGE):$(TAG)
+
+public:
+	docker run -it --rm $(VOLUMES) -p 0.0.0.0:$(PORT):80 -h $(IMAGE) $(ACCOUNT)/$(IMAGE):$(TAG)
 
 push: build
 	docker push $(ACCOUNT)/$(IMAGE):$(TAG)
