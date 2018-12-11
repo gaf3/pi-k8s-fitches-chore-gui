@@ -1,13 +1,7 @@
 {{#def.Header}}
 <div class="uk-overflow-container">
-    <h2>{{=it.chore.label}} - Chore</h2>
+    <h2>{{=it.chore.label}}</h2>
     <form class="uk-form uk-form-horizontal">
-        <div class="uk-form-row">
-            <label class="uk-form-label" for="label">Label</label>
-            <div class="uk-form-controls">
-                {{=it.chore.label}}
-            </div>
-        </div>
         <div class="uk-form-row">
             <label class="uk-form-label" for="person">Person</label>
             <div class="uk-form-controls">
@@ -17,9 +11,52 @@
         <div class="uk-form-row">
             <label class="uk-form-label" for="status">Status</label>
             <div class="uk-form-controls">
-                {{= it.chore.end ? "Completed" : "Active" }}
+                {{? it.chore.end }}
+                    Completed
+                {{??}}
+                    Active
+                    <button type="button" OnClick="DRApp.current.controller.next('{{=it.chore.id}}')" class="uk-button uk-button-primary">
+                        <i class="uk-icon-step-forward"></i> 
+                    </button>                       
+                {{?}}
             </div>
         </div>    
+        {{~it.chore.tasks :task}}
+        <div class="uk-form-row">
+            <label class="uk-form-label" for="{{!task.text}}">
+                {{=task.text.split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ')}}
+            </label>
+            <div class="uk-form-controls">
+                {{? task.paused }}
+                    Paused
+                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'unpause')" class="uk-button uk-button-primary">
+                        <i class="uk-icon-play"></i> 
+                    </button> 
+                {{?? task.skipped }}
+                    Skipped
+                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'unskip')" class="uk-button uk-button-primary">
+                        <i class="uk-icon-fast-backward"></i> 
+                    </button>
+                {{?? task.end }}
+                    Completed
+                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'incomplete')" class="uk-button uk-button-primary">
+                        <i class="uk-icon-times"></i> 
+                    </button> 
+                {{??}}
+                    Active
+                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'pause')" class="uk-button uk-button-primary">
+                        <i class="uk-icon-pause"></i> 
+                    </button> 
+                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'skip')" class="uk-button uk-button-primary">
+                        <i class="uk-icon-fast-forward"></i> 
+                    </button>
+                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'complete')" class="uk-button uk-button-primary">
+                        <i class="uk-icon-check"></i> 
+                    </button>                       
+                {{?}}
+            </div>
+        </div>
+        {{~}}
         <div class="uk-form-row">
             <label class="uk-form-label" for="text">Text</label>
             <div class="uk-form-controls">
@@ -27,58 +64,15 @@
             </div>
         </div>
         <div class="uk-form-row">
-            <label class="uk-form-label" for="language">Language</label>
+            <label class="uk-form-label" for="node">Node</label>
             <div class="uk-form-controls">
-                {{=it.chore.language}}
+                {{=it.chore.node}}
             </div>
         </div>
         <div class="uk-form-row">
-            <label class="uk-form-label" for="tasks">Tasks</label>
+            <label class="uk-form-label" for="language">Language</label>
             <div class="uk-form-controls">
-                <table class="uk-table uk-table-hover">
-                    <thead>
-                        <tr>
-                            <th>Text</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{~it.chore.tasks :task}}
-                        <tr>
-                            <td>{{=task.text}}</td>
-                            <td>
-                                {{? task.paused }}
-                                    Paused
-                                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'unpause')" class="uk-button uk-button-primary">
-                                        <i class="uk-icon-play"></i> 
-                                    </button> 
-                                {{?? task.skipped }}
-                                    Skipped
-                                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'unskip')" class="uk-button uk-button-primary">
-                                        <i class="uk-icon-fast-backward"></i> 
-                                    </button>
-                                {{?? task.end }}
-                                    Completed
-                                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'incomplete')" class="uk-button uk-button-primary">
-                                        <i class="uk-icon-times"></i> 
-                                    </button> 
-                                {{??}}
-                                    Active
-                                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'pause')" class="uk-button uk-button-primary">
-                                        <i class="uk-icon-pause"></i> 
-                                    </button> 
-                                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'skip')" class="uk-button uk-button-primary">
-                                        <i class="uk-icon-fast-forward"></i> 
-                                    </button>
-                                    <button type="button" OnClick="DRApp.current.controller.task_action('{{=it.chore.id}}',{{=task.id}},'complete')" class="uk-button uk-button-primary">
-                                        <i class="uk-icon-check"></i> 
-                                    </button>                       
-                                {{?}}
-                            </td>
-                        </tr>
-                        {{~}}
-                    </tbody>
-                </table>            
+                {{=it.chore.language}}
             </div>
         </div>
     </form>

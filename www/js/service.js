@@ -65,7 +65,7 @@ DRApp.controller("Base",null,{
     },
     create_data: function(data) {
         this.it.values = data.chore;
-        this.application.render(this.it);
+        this.application.go("chore", data.chore.id)
     },
     chores: function() {
         DRApp.rest("GET","/api/chore",null,$.proxy(this.chores_data,this));
